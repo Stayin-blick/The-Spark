@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
+{% load crispy_forms_tags %}
+
 <div class="container-fluid">
     <!-- Row that spans across the screen -->
     <div class="row">
@@ -68,6 +70,27 @@
                     </div>
                     <!-- Our for loop ends here -->
                     {% endfor %}
+                </div>
+                <div class="row mt-auto">
+                    <div class="col-12">
+                        <!-- Content for the new row (20% of the column) -->
+                        <!-- Add your content here -->
+                        <div class="p-3 rounded-pill shadow main-bg">
+                            <!-- Content goes here -->
+                            <!-- This div will take up 20% of the column width -->
+                            <!-- Adjust the content and styling as needed -->
+                            {% if user.is_authenticated %}
+
+                            <h3>Leave a comment:</h3>
+                            <p>Posting as: {{ user.username }}</p>
+                            <form method="post" style="margin-top: 1.3em;">
+                                {{ comment_form | crispy }}
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
