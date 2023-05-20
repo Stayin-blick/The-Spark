@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!--Filter bar-->
+<div class="container-fluid main-bg shadow p-3 mb-4 bg-body-tertiary rounded-pill mx-auto">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 mx-auto">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-primary">Create Post</button>
+                <button class="btn btn-primary">Top Likes</button>
+                <button class="btn btn-primary">Top Comments</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid rounded-pill text-center">
+    <!--user post-->
+    {% for post in post_list %}
+    <!--post card-->
+    <div class="main-bg p-3 m-4 rounded-pill shadow-lg">
+        <!--title positioning-->
+        <div class="conatiner-fluid w-50 mx-auto">
+            <a href="{% url 'post_detail' post.slug %}" class="post-link">
+                <h3>{{ post.title }}</h3>
+            </a>
+
+            <!--image-->
+            <div class="card w-75 mx-auto">
+                {% if "placeholder" in post.featured_image.url %}
+                <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
+                {% else %}
+                <img src="{{ post.featured_image.url }}">
+                {% endif %}
+
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ post.content }}
+                    </p>
+                    <p class="card-text"><small class="text-body-secondary">
+                            By: {{ post.author }} | {{ post.created_date}}</small>
+                    </p>
+                    <span>
+                        <i class="far fa-heart"></i>{{ post.number_of_likes }}
+                        <i class="fa-regular fa-comment"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% endblock %}
