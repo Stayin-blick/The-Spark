@@ -3,6 +3,6 @@ from django import forms
 
 
 class CommentForm(forms.ModelForm):
-    class meta:
+    class Meta:
         model = Comment
-        fields = ('body')
+        fields = ('body',)

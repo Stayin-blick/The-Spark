@@ -54,8 +54,14 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="/profile">Profile</a>
-                            <a class="dropdown-item" href="/logout">Sign Out</a>
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
                         </div>
+                    </li>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
