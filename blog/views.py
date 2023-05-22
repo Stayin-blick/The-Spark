@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
+from taggit.models import Tag
 from .models import Post
 from .forms import CommentForm
 
@@ -10,6 +11,36 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by("-created_date")
     template_name = "index.html"
     paginate_by = 6
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        tag_slug = self.request.GET.get('tag')
+        if tag_slug:
+            tag = get_object_or_404(Tag, slug=tag_slug)
+            queryset = queryset.filter(tags=tag)
+        return queryset
+
+
+class Create_Post(View):
+
+    def create_post(request):
+        if request.method == 'POST':
+            form = BlogPostForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
+                post.save()
+                tags = request.POST.get('tags')
+                if tags:
+                    tag_list = tags.split(',')
+                    for tag_name in tag_list:
+                        tag, created = Tag.objects.get_or_create(
+                            name=tag_name.strip())
+                        post.tags.add(tag)
+                return redirect('post_details', slug=post.slug)
+        else:
+            form = BlogPostForm(initial={'author': request.user.username})
+        return render(request, 'create_post.html', {'form': form})
 
 
 class PostDetail(View):
