@@ -1,99 +1,129 @@
-{% extends 'base.html' %} {% block content %}
-{% load crispy_forms_tags %}
+{% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
 
 <div class="container-fluid">
-    <!-- Row that spans across the screen -->
-    <div class="row">
-        <div class="col">
-            {{ post.title }}
-        </div>
+  <!-- Row that spans across the screen -->
+  <div class="row">
+    <div class="col">{{ post.title }}</div>
+  </div>
+
+  <!-- Row with two columns on the right and left -->
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Content for the left column -->
+      By: {{ post.author }} | {{ post.created_date}}
+    </div>
+    <div class="d-inline-flex col gap-3">
+      <!-- Content for the right column -->
+      <div class="col-1">
+        {% if user.is_authenticated %}
+        <form
+          class="d-inline"
+          action="{% url 'post_like' post.slug %}"
+          method="POST"
+        >
+          {% csrf_token %} {% if liked %}
+          <button
+            type="submit"
+            name="blogpost_id"
+            value="{{post.slug}}"
+            class="btn-like"
+          >
+            <i class="fa-solid fa-heart"></i>
+          </button>
+          {% else %}
+          <button
+            type="submit"
+            name="blogpost_id"
+            value="{{post.slug}}"
+            class="btn-like"
+          >
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          {% endif %}
+        </form>
+        {% else %}
+        <strong class="text-secondary"
+          ><i class="fa-regular fa-heart">{{ post.number_of_likes }}</i>
+        </strong>
+        {% endif %}
+      </div>
+      <div class="col-1">
+        {% with comments.count as total_comments %}
+        <strong class="text-secondary"
+          ><i class="far fa-comments"></i> {{ total_comments }}</strong
+        >
+        {% endwith %}
+      </div>
     </div>
 
-    <!-- Row with two columns on the right and left -->
-    <div class="row">
-        <div class="col-md-6">
-            <!-- Content for the left column -->
-            By: {{ post.author }} | {{ post.created_date}}
+    <div class="row mx-auto">
+      <div class="col-md-8">
+        <!-- Content for the left column-->
+        <!-- The featured image-->
+        {% if "placeholder" in post.featured_image.url %}
+        <img
+          src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg"
+          width="100%"
+        />
+        {% else %}
+        <img src="{{ post.featured_image.url }}" width="100%" />
+        {% endif %}
+      </div>
+      <div class="col-md-4 shadow-lg main-bg">
+        <!-- Content for the right column-->
+        <!-- Comments-->
+        <h3 class="p-2 rounded-pill shadow">Comments:</h3>
+        <div class="card-body p-2 rounded-pill shadow main-bg">
+          <!-- We want a for loop inside the tags to iterate through each comment in comments -->
+          {% for comment in comments %}
+          <div class="comments" style="padding: 10px">
+            <p class="font-weight-bold">
+              {{ comment.name }}
+              <span class="text-muted font-weight-normal">
+                {{ comment.created_on }}
+              </span>
+              wrote:
+            </p>
+            {{ comment.body | linebreaks }}
+          </div>
+          {% endfor %}
         </div>
-        <div class="d-inline-flex col gap-3">
-            <!-- Content for the right column -->
-            <div class="col-1">
-                <strong class="text-secondary"><i class="far fa-heart">{{ post.number_of_likes }}</i>
-                </strong>
+        <div class="row mt-auto">
+          <div class="col-12">
+            <!-- Content for the new row (20% of the column) -->
+            <div class="p-3 rounded-pill shadow main-bg">
+              <!-- Content goes here -->
+              <!-- This div will take up 20% of the column width -->
+              {% if commented %}
+              <div class="alert alert-success" role="alert">
+                Your comment is awaiting approval
+              </div>
+              {% else %} {% if user.is_authenticated %}
+              <h3>Leave a comment:</h3>
+              <p>Posting as: {{ user.username }}</p>
+              <form method="post" style="margin-top: 1.3em">
+                {{ comment_form | crispy }} {% csrf_token %}
+                <button type="submit" class="btn btn-signup btn-lg">
+                  Submit
+                </button>
+              </form>
+              {% endif %}{% endif %}
             </div>
-            <div class="col-1">
-                {% with comments.count as total_comments %}
-                <strong class="text-secondary"><i class="far fa-comments"></i>
-                    {{ total_comments }}</strong>
-                {% endwith %}
-            </div>
+          </div>
         </div>
-
-        <div class="row mx-auto">
-            <div class="col-md-8">
-                <!-- Content for the left column-->
-                <!-- The featured image-->
-                {% if "placeholder" in post.featured_image.url %}
-                <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" width="100%" />
-                {% else %}
-                <img src="{{ post.featured_image.url }}" width="100%" />
-                {% endif %}
-            </div>
-            <div class="col-md-4 shadow-lg main-bg">
-                <!-- Content for the right column-->
-                <!-- Comments-->
-                <h3 class=" p-2 rounded-pill shadow">Comments:</h3>
-                <div class="card-body p-2 rounded-pill shadow main-bg">
-                    <!-- We want a for loop inside the tags to iterate through each comment in comments -->
-                    {% for comment in comments %}
-                    <div class="comments" style="padding: 10px">
-                        <p class="font-weight-bold">
-                            {{ comment.name }}
-                            <span class="text-muted font-weight-normal">
-                                {{ comment.created_on }}
-                            </span>
-                            wrote:
-                        </p>
-                        {{ comment.body | linebreaks }}
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="row mt-auto">
-                    <div class="col-12">
-                        <!-- Content for the new row (20% of the column) -->
-                        <div class="p-3 rounded-pill shadow main-bg">
-                            <!-- Content goes here -->
-                            <!-- This div will take up 20% of the column width -->
-                            {% if commented %}
-                            <div class="alert alert-success" role="alert">
-                                Your comment is awaiting approval
-                            </div>
-                            {% else %}
-                            {% if user.is_authenticated %}
-                            <h3>Leave a comment:</h3>
-                            <p>Posting as: {{ user.username }}</p>
-                            <form method="post" style="margin-top: 1.3em;">
-                                {{ comment_form | crispy }}
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-signup btn-lg">Submit</button>
-                            </form>
-                            {% endif %}{% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Another row -->
-        <div class="row">
-            <div class="col">
-                <!-- Content for the row -->
-                <!-- Add your content here -->
-                {{ post.content }}
-            </div>
-        </div>
-
-        <!-- Add more rows as needed -->
+      </div>
     </div>
-    {% endblock content %}
+
+    <!-- Another row -->
+    <div class="row">
+      <div class="col">
+        <!-- Content for the row -->
+        <!-- Add your content here -->
+        {{ post.content }}
+      </div>
+    </div>
+
+    <!-- Add more rows as needed -->
+  </div>
+  {% endblock content %}
 </div>
