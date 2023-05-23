@@ -20,6 +20,8 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(
         User, related_name='blogpost_likes', blank=True)
+    comments = models.ManyToManyField(
+        'Comment', related_name='post_num_comments', blank=True)
 
     class meta:
         ordering = ["-created_on"]
@@ -29,11 +31,14 @@ class Post(models.Model):
 
     def number_of_likes(self):
         return self.likes.count()
+    
+    def number_of_comments(self):
+         return self.comments.count()
 
 
 class Comment(models.Model):
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='comments')
+        Post, on_delete=models.CASCADE, related_name='post_comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
