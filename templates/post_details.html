@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
 
-<div class="container-fluid">
+<div class="container-fluid p-3 shadow main-bg">
     <!-- Row that spans across the screen -->
     <div class="row">
         <div class="col">{{ post.title }}</div>
@@ -12,7 +12,7 @@
             <!-- Content for the left column -->
             By: {{ post.author }} | {{ post.created_date}}
         </div>
-        <div class="d-inline-flex col gap-3">
+        <div class="d-flex justify-content-end mb-2">
             <!-- Content for the right column -->
             <div class="col-1">
                 {% if user.is_authenticated %}
@@ -53,7 +53,7 @@
                 <!-- Content for the right column-->
                 <!-- Comments-->
                 <h3 class="p-2 rounded-pill shadow">Comments:</h3>
-                <div class="card-body p-2 rounded-pill shadow main-bg">
+                <div class="card-body">
                     <!-- We want a for loop inside the tags to iterate through each comment in comments -->
                     {% for comment in comments %}
                     <div class="comments" style="padding: 10px">
@@ -71,7 +71,7 @@
                 <div class="row mt-auto">
                     <div class="col-12">
                         <!-- Content for the new row (20% of the column) -->
-                        <div class="p-3 rounded-pill shadow main-bg">
+                        <div class="p-5 rounded-pill text-center shadow main-bg">
                             <!-- Content goes here -->
                             <!-- This div will take up 20% of the column width -->
                             {% if commented %}
@@ -81,7 +81,7 @@
                             {% else %} {% if user.is_authenticated %}
                             <h3>Leave a comment:</h3>
                             <p>Posting as: {{ user.username }}</p>
-                            <form method="post" style="margin-top: 1.3em">
+                            <form method="post">
                                 {{ comment_form | crispy }} {% csrf_token %}
                                 <button type="submit" class="btn btn-signup btn-lg">
                                     Submit
@@ -91,11 +91,12 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
         <!-- Another row -->
-        <div class="row">
+        <div class="row p-3">
             <div class="col">
                 <!-- Content for the row -->
                 <!-- Add your content here -->
