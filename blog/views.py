@@ -48,7 +48,8 @@ class PostDetail(View):
     def get(self, request, slug, *args, **kwargs):
         queryset = Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
-        comments = post.comments.filter(approved=True).order_by('created_on')
+        comments = post.post_comments.filter(
+            approved=True).order_by('created_on')
         liked = False
         if post.likes.filter(id=self.request.user.id).exists():
             liked = True
@@ -102,6 +103,6 @@ class PostLike(View):
         if post.likes.filter(id=request.user.id).exists():
             post.likes.remove(request.user)
         else:
-            post.likes.add(request.user)
+            post.likes.add(request.user.id)
 
         return HttpResponseRedirect(reverse('post_details', args=[slug]))
