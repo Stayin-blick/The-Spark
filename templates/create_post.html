@@ -1,13 +1,12 @@
 {% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
 
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="form-group">
-        <label for="id_tags">Tags:</label>
-        <input id="id_tags" name="tags" class="form-control" type="text">
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+  {% csrf_token %} {{ form.as_p }}
+  <div class="form-group">
+    <label for="id_tags">Tags:</label>
+    <input id="id_tags" name="tags" class="form-control" type="text" />
+  </div>
+  <button type="submit" class="btn btn-primary">Create</button>
 </form>
 
 {% endblock %}
