@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from taggit.managers import TaggableManager
@@ -17,7 +18,7 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=STATUS, default=0)
+    status = models.IntegerField(choices=STATUS, default=1)
     likes = models.ManyToManyField(
         User, related_name='blogpost_likes', blank=True)
     comments = models.ManyToManyField(
@@ -28,6 +29,20 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug or self.__class__.objects.filter(slug=self.slug).exists():
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+
+            while self.__class__.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
+        super().save(*args, **kwargs)
 
     def number_of_likes(self):
         return self.likes.count()
