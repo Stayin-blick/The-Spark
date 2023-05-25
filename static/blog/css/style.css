@@ -5,7 +5,19 @@ p {
     font-family: 'Exo 2', sans-serif;
 }
 
+@media (max-width: 768px) {
+    /*look into removing padding on screen sizes smaller than 1024px*/
 
+    .p-lg-5,
+    .p-0 {
+        padding: 0;
+    }
+
+    .p-lg-4,
+    .p-0 {
+        padding: 0;
+    }
+}
 
 
 

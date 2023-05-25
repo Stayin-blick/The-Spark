@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
+from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 from .models import Post
@@ -41,7 +42,7 @@ class Create_Post(View):
                     tag, created = Tag.objects.get_or_create(
                         name=tag_name.strip())
                     post.tags.add(tag)
-            return redirect('post_details', slug=post.slug)
+            return redirect(reverse_lazy('home'))
         else:
             return render(request, 'create_post.html', {'form': form})
 
