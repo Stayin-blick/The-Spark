@@ -3,7 +3,7 @@ from django.views import generic, View
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 from .models import Post
-from .forms import CommentForm
+from .forms import CommentForm, BlogPostForm
 from django.views import View
 
 
@@ -24,24 +24,26 @@ class PostList(generic.ListView):
 
 class Create_Post(View):
 
-    def create_post(self, request):
-        if request.method == 'POST':
-            form = BlogPostForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.author = request.user
-                post.save()
-                tags = request.POST.get('tags')
-                if tags:
-                    tag_list = tags.split(',')
-                    for tag_name in tag_list:
-                        tag, created = Tag.objects.get_or_create(
-                            name=tag_name.strip())
-                        post.tags.add(tag)
-                return redirect('post_details', slug=post.slug)
-        else:
-            form = BlogPostForm(initial={'author': request.user.username})
+    def get(self, request):
+        form = BlogPostForm(initial={'author': request.user.username})
         return render(request, 'create_post.html', {'form': form})
+
+    def post(self, request):
+        form = BlogPostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            tags = request.POST.get('tags')
+            if tags:
+                tag_list = tags.split(',')
+                for tag_name in tag_list:
+                    tag, created = Tag.objects.get_or_create(
+                        name=tag_name.strip())
+                    post.tags.add(tag)
+            return redirect('post_details', slug=post.slug)
+        else:
+            return render(request, 'create_post.html', {'form': form})
 
 
 class PostDetail(View):
