@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 from .models import Post
 from .forms import CommentForm
+from django.views import View
 
 
 class PostList(generic.ListView):
@@ -23,7 +24,7 @@ class PostList(generic.ListView):
 
 class Create_Post(View):
 
-    def create_post(request):
+    def create_post(self, request):
         if request.method == 'POST':
             form = BlogPostForm(request.POST)
             if form.is_valid():
