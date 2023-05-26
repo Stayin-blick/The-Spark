@@ -6,17 +6,18 @@
         <div class="col-lg-9 col-md-12 mx-auto">
             <div class="d-flex justify-content-between">
                 <a class="btn btn-primary" href="{% url 'create_post' %}">Create Post</a>
-                <button class="btn btn-primary">Top Likes</button>
-                <button class="btn btn-primary">Top Comments</button>
+                <button class="btn btn-primary" id="sortLikesBtn">Top Likes</button>
+                <button class="btn btn-primary" id="sortCommentsBtn">Top Comments</button>
             </div>
         </div>
     </div>
 </div>
-<div class="container-fluid rounded-pill text-center">
+<div class="container-fluid rounded-pill text-center" id="postsContainer">
     <!--user post-->
     {% for post in post_list %}
     <!--post card-->
-    <div class="main-bg p-3 m-4 rounded-pill shadow-lg">
+    <div class="blog-post main-bg p-3 m-4 rounded-pill shadow-lg" data-likes="{{ post.number_of_likes }}"
+        data-comments="{{ post.number_of_comments }}">
         <!--title positioning-->
         <div class="conatiner-fluid w-50 mx-auto">
             <a href="{% url 'post_details' post.slug %}" class="post-link">

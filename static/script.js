@@ -1,16 +1,33 @@
 // interative bar
 // Get the buttons
-const topLikesBtn = document.querySelector(".btn-primary:nth-of-type(2)");
-const topCommentsBtn = document.querySelector(".btn-primary:nth-of-type(3)");
+const sortLikesBtn = document.getElementById('sortLikesBtn');
+const sortCommentsBtn = document.getElementById('sortCommentsBtn');
 
-// Get the blog post container
-const blogPostContainer = document.querySelector(
-    ".container-fluid.rounded-pill.text-center"
-);
+//assigned event listener
+sortLikesBtn.addEventListener('click', sortPostsByLikes);
+sortCommentsBtn.addEventListener('click', sortPostsByComments);
 
-// Add event listeners to the buttons
+function sortPostsByLikes() {
+    const blogPosts = Array.from(document.querySelectorAll('.blog-post'));
+    blogPosts.sort((a, b) => {
+        const likesA = parseInt(a.dataset.likes);
+        const likesB = parseInt(b.dataset.likes);
+        return likesB - likesA;
+    });
+    rearrangePosts(blogPosts);
+}
 
-topLikesBtn.addEventListener("click", sortPostsByLikes);
+function sortPostsByComments() {
+    const blogPosts = Array.from(document.querySelectorAll('.blog-post'));
+    blogPosts.sort((a, b) => {
+        const commentsA = parseInt(a.dataset.comments);
+        const commentsB = parseInt(b.dataset.comments);
+        return commentsB - commentsA;
+    });
+    rearrangePosts(blogPosts);
+}
 
-topCommentsBtn.addEventListener("click", sortPostsByComments);
-
+function rearrangePosts(sortedPosts) {
+    const container = document.getElementById('postsContainer');
+    sortedPosts.forEach(post => container.appendChild(post));
+}
