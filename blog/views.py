@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from taggit.models import Tag
 from .models import Post
 from .forms import CommentForm, BlogPostForm
-from django.views import View
+
 
 
 class PostList(generic.ListView):
