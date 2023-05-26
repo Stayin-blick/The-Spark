@@ -5,7 +5,7 @@ const topCommentsBtn = document.querySelector(".btn-primary:nth-of-type(3)");
 
 // Get the blog post container
 const blogPostContainer = document.querySelector(
-  ".container-fluid.rounded-pill.text-center"
+    ".container-fluid.rounded-pill.text-center"
 );
 
 // Add event listeners to the buttons
@@ -23,15 +23,11 @@ topCommentsBtn.addEventListener("click", sortPostsByComments);
 
 // Function to darken the button
 function darkenButton(event) {
-  event.target.classList.add("darken");
+    event.target.classList.add("darken");
 }
 
 // Function to restore the button to its original state
 function restoreButton(event) {
-  event.target.classList.remove("darken");
+    event.target.classList.remove("darken");
 }
 
-// Function to redirect to the create_post.html page
-function redirectToCreatePost() {
-  window.location.href = "create_post.html";
-}
