@@ -32,9 +32,8 @@
 
                 <form id="search-form" class="d-flex col-sm-7 my-2 my-lg-0 nav-item">
                     <!--tags search bar dont forget crsf token-->
-                    <input class="form-control me-2" id="tag-input" type="search" placeholder="Search"
+                    <input class="form-control me-2" id="tag-input" type="search" placeholder="Search by tag..."
                         aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search by tag...</button>
                 </form>
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
