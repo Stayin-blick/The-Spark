@@ -28,7 +28,9 @@
         <nav
             class="navbar navbar-expand-md w-75 mx-auto p-3 navbar-dark bg-dark rounded-pill shadow-lg p-3 mb-3 rounded">
             <div class="container navbar-nav">
-                <a class="navbar-brand nav-item" href="/">Logo</a>
+                <a class="navbar-brand nav-item" href="/">Logo
+                    <!--site logo-->
+                </a>
 
                 <form id="search-form" class="d-flex col-sm-7 my-2 my-lg-0 nav-item">
                     {% csrf_token %}
@@ -87,11 +89,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>The Spark©{{ current_year }}</p>
-                </div>
-                <div class="col-md-6 text-md-right">
-                    <a href="#">Report an Issue</a>
-                    <a href="#" id="scrollToTop"><i class="fa fa-arrow-up"></i></a>
+                    <p>The Spark©{{ current_year }}
+                        <!--site logo-->
+                    </p>
                 </div>
             </div>
         </div>

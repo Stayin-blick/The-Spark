@@ -1,5 +1,6 @@
 // interactive bar
-// Get the buttons
+//sorting script (Top Likes/Top Comments)
+
 const sortLikesBtn = document.getElementById('sortLikesBtn');
 const sortCommentsBtn = document.getElementById('sortCommentsBtn');
 
@@ -28,9 +29,46 @@ function sortPostsByComments() {
 }
 
 function rearrangePosts(sortedPosts) {
-    const container = document.getElementById('postsContainer');
+    const container = document.getElementById('blog-post');
     sortedPosts.forEach(post => container.appendChild(post));
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('search-form');
+    const input = document.getElementById('tag-input');
+    const blogPosts = document.getElementsByClassName('blog-post');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const searchValue = input.value.toLowerCase();
+
+        for (let i = 0; i < blogPosts.length; i++) {
+            const post = blogPosts[i];
+            const tags = post.dataset.tags.toLowerCase();
+
+            if (searchValue === '' || tags.includes(searchValue)) {
+                post.style.display = 'block';
+            } else {
+                post.style.display = 'none';
+            }
+        }
+    });
+
+    input.addEventListener('input', function () {
+        const searchValue = input.value.toLowerCase();
+
+        for (let i = 0; i < blogPosts.length; i++) {
+            const post = blogPosts[i];
+            const tags = post.dataset.tags.toLowerCase();
+
+            if (searchValue === '' || tags.includes(searchValue)) {
+                post.style.display = 'block';
+            } else {
+                post.style.display = 'none';
+            }
+        }
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('search-form');
