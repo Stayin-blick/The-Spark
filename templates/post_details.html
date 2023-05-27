@@ -29,7 +29,7 @@
                 </form>
                 {% else %}
                 <strong class="text-secondary">
-                    <i class="fa-regular fa-heart">{{ post.number_of_likes }}</i>
+                    <i class="fa-regular fa-heart"> {{ post.number_of_likes }}</i>
                 </strong>
                 {% endif %}
             </div>
@@ -69,6 +69,8 @@
                         </p>
                         {{ comment.body | linebreaks }}
                     </div>
+                    {% empty %}
+                    <p class="text-center">No comments yet.</p>
                     {% endfor %}
                 </div>
                 <div class="row mt-auto">

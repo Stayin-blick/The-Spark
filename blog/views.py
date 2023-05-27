@@ -7,7 +7,6 @@ from .models import Post
 from .forms import CommentForm, BlogPostForm
 
 
-
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_date")

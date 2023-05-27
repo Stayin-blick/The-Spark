@@ -48,7 +48,8 @@
                     </p>
                     <span>
                         <i class="far fa-heart"></i>{{ post.number_of_likes }}
-                        <i class="fa-regular fa-comment"></i>{{ post.number_of_comments }}
+                        <i class="fa-regular fa-comment"></i>{{ post.comments.all.count }}
+                        <!--figure out-->
                     </span>
                 </div>
             </div>
