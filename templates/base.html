@@ -31,7 +31,7 @@
                 <a class="navbar-brand nav-item" href="/">Logo</a>
 
                 <form id="search-form" class="d-flex col-sm-7 my-2 my-lg-0 nav-item">
-                    <!--tags search bar dont forget crsf token-->
+                    {% csrf_token %}
                     <input class="form-control me-2" id="tag-input" type="search" placeholder="Search by tag..."
                         aria-label="Search">
                 </form>
@@ -53,15 +53,8 @@
                             <i class="fa-solid fa-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/profile">Profile</a>
                             <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
                         </div>
-                    </li>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
-                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
