@@ -1,5 +1,5 @@
 // interactive bar
-//sorting script (Top Likes/Top Comments/Most Recent)
+// sorting script (Top Likes/Top Comments/Most Recent)
 
 const sortLikesBtn = document.getElementById('sortLikesBtn');
 const sortCommentsBtn = document.getElementById('sortCommentsBtn');
@@ -8,10 +8,9 @@ const sortCommentsBtn = document.getElementById('sortCommentsBtn');
 let likesSortAscending = false;
 let commentsSortAscending = false;
 
-//assign event listener
+// assign event listener
 sortLikesBtn.addEventListener('click', sortPostsByLikes);
 sortCommentsBtn.addEventListener('click', sortPostsByComments);
-mostRecentBtn.addEventListener('click', sortPostsByRecent);
 
 // sort by likes function
 function sortPostsByLikes() {
@@ -43,13 +42,14 @@ function sortPostsByComments() {
     });
     commentsSortAscending = !commentsSortAscending;
     rearrangePosts(blogPosts);
+}
 
 function rearrangePosts(sortedPosts) {
     const container = document.getElementById('blog-post');
     sortedPosts.forEach(post => container.appendChild(post));
 }
 
-//tag search bar
+// tag search bar
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('search-form');
     const input = document.getElementById('tag-input');
