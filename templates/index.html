@@ -17,7 +17,7 @@
     {% for post in post_list %}
     <!--post card-->
     <div class="blog-post main-bg p-3 m-4 rounded-pill shadow-lg" data-likes="{{ post.number_of_likes }}"
-        data-comments="{{ post.number_of_comments }}"
+        data-comments="{{ post.number_of_approved_comments }}"
         data-tags="{% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor%}">
         <!--title positioning-->
         <div class="conatiner-fluid w-50 mx-auto">
@@ -49,8 +49,7 @@
                     </p>
                     <span>
                         <i class="far fa-heart"></i>{{ post.number_of_likes }}
-                        <i class="fa-regular fa-comment"></i>{{ post.comments.all.count }}
-                        <!--figure out-->
+                        <i class="fa-regular fa-comment"></i>{{ post.number_of_approved_comments }}
                     </span>
                 </div>
             </div>
