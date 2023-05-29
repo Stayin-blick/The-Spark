@@ -167,19 +167,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dst186exl',
-    'API_KEY': '661975641416168',
-    'API_SECRET': 'SBJjD7RvcifGg9pLqLAu19bw0CQ',
-}
-
-CLOUDINARY_STORAGE.update({
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME', CLOUDINARY_STORAGE['CLOUD_NAME']),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', CLOUDINARY_STORAGE['API_KEY']),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', CLOUDINARY_STORAGE['API_SECRET'])
-})
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
