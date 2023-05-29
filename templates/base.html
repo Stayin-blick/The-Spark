@@ -24,43 +24,47 @@
 
 <body class="d-flex flex-column h-100 main-bg">
     <!--Navbar-->
-    <div class="container-fluid navbar-dark main-color rounded-pill shadow-lg">
-        <nav class="row navbar navbar-expand-md mx-auto mb-3">
-            <div class="container navbar-nav d-flex align-items-center p-0">
-                <div class="row navbar-brand nav-item m-2">
-                    <a class="navbar-brand nav-item" href="/">
-                    <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg" style="border-radius: 35px;" class="col my-4">
+<nav class="navbar navbar-expand-md main-color rounded-pill shadow-lg">
+    <div class="container-fluid">
+        <div class="row w-80 mx-auto align-items-center">
+            <div class="col">
+                <div class="nav-item">
+                    <a class="navbar-brand" href="/">
+                        <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg"
+                            style="border-radius: 35px;">
+                    </a>
                 </div>
-
-                <div class="d-flex justify-content-center col-sm-6">
+            </div>
+            <div class="col">
+                <div class="nav-item">
                     <form id="search-form" class="d-flex my-2 my-lg-0 nav-item">
                         {% csrf_token %}
-                        <input class="form-control me-2 flex-grow-1 w-100" id="tag-input" type="search" placeholder="Search by tag..." aria-label="Search">
+                        <input class="form-control me-2" id="tag-input" type="search" placeholder="Search by tag..."
+                            aria-label="Search">
                     </form>
                 </div>
-                <div class="d-flex align-items-center" style="padding-right: 40px;">
+            </div>
+            <div class="col d-flex justify-content-end">
+                <div class="d-flex align-items-center">
                     <ul class="navbar-nav" style="padding-left: 0px;">
-                        {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-user"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
-                            </div>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
-                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                        </li>
-                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="/accounts/signup/">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/login/">Login</a></li>
                     </ul>
                 </div>
             </div>
-        </nav>
+        </div>
     </div>
+</nav>
+
+<!-- Responsive CSS -->
+<style>
+    @media (max-width: 767.98px) {
+        .navbar .row {
+            flex-direction: column;
+        }
+    }
+</style>
+
 
     <main class="container-fluid p-3 m-4 mx-auto">
         {% block content %}
