@@ -37,7 +37,7 @@ ALLOWED_HOSTS = [
     "8000-stayin-blick-the-spark-wfk1ecavj2.us2.codeanyapp.com",
     "The_Spark.herokuapp.com",
     "localhost",
-    "https://spark-project4.herokuapp.com/",
+    "spark-project4.herokuapp.com/",
 ]
 
 
