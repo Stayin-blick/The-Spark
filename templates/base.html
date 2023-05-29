@@ -24,52 +24,42 @@
 
 <body class="d-flex flex-column h-100 main-bg">
     <!--Navbar-->
-    <div class="container-fluid">
-        <nav
-            class="navbar navbar-expand-md w-75 mx-auto p-3 navbar-dark bg-dark rounded-pill shadow-lg p-3 mb-3 rounded">
-            <div class="container navbar-nav">
-                <a class="navbar-brand nav-item" href="/">Logo
-                    <!--site logo-->
-                </a>
+    <div class="container-fluid navbar-dark main-color rounded-pill shadow-lg">
+        <nav class="row navbar navbar-expand-md mx-auto mb-3">
+            <div class="container navbar-nav d-flex align-items-center p-0">
+                <div class="row navbar-brand nav-item m-2">
+                    <a class="navbar-brand nav-item" href="/">
+                    <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg" style="border-radius: 35px;" class="col my-4">
+                </div>
 
-                <form id="search-form" class="d-flex col-sm-7 my-2 my-lg-0 nav-item">
-                    {% csrf_token %}
-                    <input class="form-control me-2" id="tag-input" type="search" placeholder="Search by tag..."
-                        aria-label="Search">
-                </form>
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
-                        </div>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
-                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
+                <div class="d-flex justify-content-center col-sm-6">
+                    <form id="search-form" class="d-flex my-2 my-lg-0 nav-item">
+                        {% csrf_token %}
+                        <input class="form-control me-2 flex-grow-1 w-100" id="tag-input" type="search" placeholder="Search by tag..." aria-label="Search">
+                    </form>
+                </div>
+                <div class="d-flex align-items-center" style="padding-right: 40px;">
+                    <ul class="navbar-nav" style="padding-left: 0px;">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </nav>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
-                    {{ message | safe }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
     </div>
 
     <main class="container-fluid p-3 m-4 mx-auto">
@@ -80,12 +70,12 @@
     </main>
 
     <!--footer-->
-    <footer class="footer w-75 mx-auto p-2 main-bg rounded-pill shadow-lg p-3 m-4 rounded-pill">
+    <footer class="footer w-75 mx-auto p-2 main-bg rounded-pill shadow-lg main-color p-3 m-4 rounded-pill">
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    <p>The Spark©{{ current_year }}
-                        <!--site logo-->
+                    <p>
+                        The Spark ©{{ current_year }}
                     </p>
                 </div>
             </div>

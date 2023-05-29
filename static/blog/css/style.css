@@ -5,9 +5,11 @@ p {
     font-family: 'Exo 2', sans-serif;
 }
 
-@media (max-width: 768px) {
-    /*look into removing padding on screen sizes smaller than 1024px*/
+.nav-link {
+    color: #fef9f8;
+}
 
+@media (max-width: 768px) {
     .p-lg-5,
     .p-0 {
         padding: 0;
@@ -19,11 +21,65 @@ p {
     }
 }
 
+/* colors */
+.main-color{
+    background-color: #ef9273;
+}
 
+.secondary-color{
+    background-color: #fef9f8;
+}
 
+.tertiary-color{
+    background-color: #0d0d0d;
+}
 
-/*.btn-custom-primary {
-  color: #fff;
-  background-color: ##80669D;
-  border-color: #ff0000;
-}*/
+/*index buttons*/
+.main-btn{
+    --bs-btn-color: #fef9f8;
+    --bs-btn-bg: #ef9273;
+    --bs-btn-border-color: #ef9273;
+    --bs-btn-hover-color: #ef9273;
+    --bs-btn-hover-bg: #fef9f8;
+    --bs-btn-hover-border-color: #ef9273;
+    --bs-btn-focus-shadow-rgb: 49,132,;
+    --bs-btn-active-color: #fef9f8;
+    --bs-btn-active-bg: #e86133;
+    --bs-btn-active-border-color: #106d8c;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #;
+    --bs-btn-disabled-bg: #ef92;
+    --bs-btn-disabled-border-color: #ef9273;
+}
+
+/*post styling*/
+/*post background*/
+.post-bg{
+    background-color: #92d8e7;
+}
+
+/*post text*/
+.post-text{
+
+}
+
+/*post title styling*/
+.title-bg {
+    border-radius: 25px;
+    background-color: #ef9273;
+}
+
+.text-style {
+    color: #fef9f8;
+    text-decoration-line: none;
+}
+
+/*post.cardbody*/
+.post-cardbody{
+    background-color: #ef9273;
+    color: #fef9f8;
+}
+
+/*form*/
+#tag-input {
+    width: 235px;

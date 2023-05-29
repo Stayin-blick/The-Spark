@@ -1,61 +1,67 @@
-{% extends "base.html" %} {% block content %}
-{% load static %}
-<!--Filter bar changes page ordering, create styling to show button is active-->
-<div class="container-fluid main-bg shadow p-3 mb-4 bg-body-tertiary rounded-pill mx-auto">
-    <div class="row">
-        <div class="col-lg-9 col-md-12 mx-auto">
-            <div class="d-flex justify-content-between">
-                <a class="btn btn-primary" href="{% url 'create_post' %}">Create Post</a>
-                <button class="btn btn-primary" id="sortLikesBtn">Top Likes</button>
-                <button class="btn btn-primary" id="sortCommentsBtn">Top Comments</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container-fluid rounded-pill text-center" id="blog-post">
-    <!--user post-->
-    {% for post in post_list %}
-    <!--post card-->
-    <div class="blog-post main-bg p-3 m-4 rounded-pill shadow-lg" data-likes="{{ post.number_of_likes }}"
-        data-comments="{{ post.number_of_approved_comments }}"
-        data-tags="{% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor%}">
-        <!--title positioning-->
-        <div class="conatiner-fluid w-50 mx-auto">
-            <a href="{% url 'post_details' post.slug %}" class="post-link">
-                <h3>{{ post.title }}</h3>
-            </a>
-
-            <!--image-->
-            <div class="card w-75 mx-auto">
-                {% if "placeholder" in post.featured_image.url %}
-                <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" />
-                {% else %}
-                <img src="{{ post.featured_image.url }}" />
-                {% endif %}
-
-                <div class="card-body">
-                    <p>
-                        Tags:{% for tag in post.tags.all %}
-                        {{ tag.name }}
-                        {% if not forloop.last %}, {% endif %}
-                        {% endfor%}
-                    </p>
-                    <p class="card-text">
-                        {{ post.content }}
-                    </p>
-                    <p class="card-text">
-                        <small class="text-body-secondary">
-                            By: {{ post.author }} | {{ post.created_date}}</small>
-                    </p>
-                    <span>
-                        <i class="far fa-heart"></i>{{ post.number_of_likes }}
-                        <i class="fa-regular fa-comment"></i>{{ post.number_of_approved_comments }}
-                    </span>
+{% extends "base.html" %} 
+{% block content %}
+    {% load static %}
+    <!--Filter bar changes page ordering, create styling to show button is active-->
+    <div class="container-fluid main-bg shadow p-3 mb-4 post-bg rounded-pill mx-auto">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 mx-auto">
+                <div class="d-flex justify-content-between">
+                    <a class="btn main-btn" href="{% url 'create_post' %}">Create Post</a>
+                    <button class="btn main-btn" id="sortLikesBtn">Top Likes</button>
+                    <button class="btn main-btn" id="sortCommentsBtn">Top Comments</button>
                 </div>
             </div>
         </div>
     </div>
-    {% endfor %}
+    <div class="container-fluid rounded-pill text-center" id="blog-post">
+        <!--user post-->
+        <div class="row">
+            {% for post in post_list %}
+                <!--post card-->
+                <div class="col main-bg shadow-lg post-bg my-2 mx-1">
+                    <div class="blog-post post-bg" data-likes="{{ post.number_of_likes }}"
+                        data-comments="{{ post.number_of_approved_comments }}"
+                        data-tags="{% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor%}">
+                        <!--title positioning-->
+                        <div class=" mt-2 conatiner-fluid mx-auto">
+                            <a class="text-style" href="{% url 'post_details' post.slug %}" class="post-link">
+                                <h1 class="btn btn-lg main-btn mt-3 title-bg">{{ post.title }}</h1>
+                            </a>
 
-</div>
+                            <!--image-->
+                            <div class="card mx-auto my-3">
+                                {% if "placeholder" in post.featured_image.url %}
+                                    <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" />
+                                {% else %}
+                                    <img src="{{ post.featured_image.url }}" />
+                                {% endif %}
+
+                                <div class="card-body post-cardbody">
+                                    <p>
+                                        Tags:{% for tag in post.tags.all %}
+                                            {{ tag.name }}
+                                            {% if not forloop.last %}, {% endif %}
+                                        {% endfor%}
+                                    </p>
+                                    <p class="card-text">
+                                        {{ post.content }}
+                                    </p>
+                                    <p class="card-text">
+                                        <small class="card-text">
+                                            By: {{ post.author }} | {{ post.created_date}}</small>
+                                    </p>
+                                    <span>
+                                        <p>
+                                            <i class="far fa-heart"></i>{{ post.number_of_likes }}
+                                            <i class="fa-regular fa-comment"></i>{{ post.number_of_approved_comments }}
+                                        </p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
