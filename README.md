@@ -11,8 +11,20 @@ this site contains differnt type of fetures to keep users engaged, such as post:
 
 - Sorting: Users can sort the blog posts based on the number of likes, comments, or recency.
 
--Search: Users can search for blog posts based on tags.
+- Search: Users can search for blog posts based on tags.
 
+issues
+
+- there were a few issues when creating this code such as trail and error with taggit
+- a few issues with codeanywhere resulting in unaccessible work for a few days
+- aswell as an etag error
+- interactive buttons
+- uui.dev having issues access the site st check responsiveness
+
+
+Deployment:
+
+This site was deployed to heroku built on codeanywhere and pushed to github and heroku. (deployed link: <https://spark-project4.herokuapp.com/>)
 
 Acknowledgments:
 through my exeperiences around cryptocurrency ive come into contact of various developer and have started to build connections and support, one member i know on discord #Karmas9992 #5222, he kept my focussed and pushed me to try new depencies i havent come across before.
