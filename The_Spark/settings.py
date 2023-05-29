@@ -36,8 +36,8 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 ALLOWED_HOSTS = [
     "8000-stayin-blick-the-spark-wfk1ecavj2.us2.codeanyapp.com",
     "The_Spark.herokuapp.com",
-    "spark-project4.herokuapp.com/",
-    "localhost",
+    "spark-project4.herokuapp.com",
+    "localhost"
 ]
 
 
