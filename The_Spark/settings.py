@@ -35,9 +35,9 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
     "8000-stayin-blick-the-spark-wfk1ecavj2.us2.codeanyapp.com",
-    "The_Spark.herokuapp.com", 
-    "localhost", 
-    "https://spark-project4.herokuapp.com/,"
+    "The_Spark.herokuapp.com",
+    "localhost",
+    "https://spark-project4.herokuapp.com/",
 ]
 
 
@@ -160,7 +160,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-MEDIA_URL = '/media/'	
+MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATIC_URL = '/static/'
