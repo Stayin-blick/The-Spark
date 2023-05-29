@@ -24,27 +24,25 @@
 
 <body class="d-flex flex-column h-100 main-bg">
     <!--Navbar-->
-<nav class="navbar navbar-expand-md main-color rounded-pill shadow-lg">
-    <div class="container-fluid">
-        <div class="row w-80 mx-auto align-items-center">
-            <div class="col">
-                <div class="nav-item">
-                    <a class="navbar-brand" href="/">
+    <div class="container-fluid navbar-dark main-color rounded-pill shadow-lg">
+        <nav class="row navbar navbar-expand-md mx-auto mb-3">
+            <div class="container navbar-nav d-flex align-items-center p-0 justify-content-center">
+                <div class="row navbar-brand nav-item m-2">
+                    <a class="navbar-brand nav-item" href="/">
                         <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg"
-                            style="border-radius: 35px;">
+                            style="border-radius: 35px;max-width: inherit;" class="col my-4">
                     </a>
                 </div>
-            </div>
-            <div class="col">
-                <div class="nav-item">
-                    <form id="search-form" class="d-flex my-2 my-lg-0 nav-item">
-                        {% csrf_token %}
-                        <input class="form-control me-2" id="tag-input" type="search" placeholder="Search by tag..."
-                            aria-label="Search">
-                    </form>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-end">
+                <a class="navbar-brand nav-item">
+                    <div class="d-flex justify-content-center col-sm-6 col-md-10 col-md-12">
+                        <form id="search-form" class="d-flex my-2 my-lg-0 nav-item">
+                            <input type="hidden" name="csrfmiddlewaretoken"
+                                value="WOej4l0bIzU1GeHeva4qJXubEqwqAQL3D6pCSjXVN69dWyIykgDIKxV70qEiFFet">
+                            <input class="form-control me-2 flex-grow-1 w-100" id="tag-input" type="search"
+                                placeholder="Search by tag..." aria-label="Search">
+                        </form>
+                    </div>
+                </a>
                 <div class="d-flex align-items-center">
                     <ul class="navbar-nav" style="padding-left: 0px;">
                         <li class="nav-item"><a class="nav-link" href="/accounts/signup/">Register</a></li>
@@ -52,18 +50,17 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
-</nav>
 
-<!-- Responsive CSS -->
-<style>
-    @media (max-width: 767.98px) {
-        .navbar .row {
-            flex-direction: column;
+    <!-- Responsive CSS -->
+    <style>
+        @media (max-width: 767.98px) {
+            .navbar .row {
+                flex-direction: column;
+            }
         }
-    }
-</style>
+    </style>
 
 
     <main class="container-fluid p-3 m-4 mx-auto">
