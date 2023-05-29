@@ -1,39 +1,18 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+Welcome to The Spark a Blog Post site that is built on django frameworks, users are able to create an account which will allow them to like and comment and create post on the site. The Sparks tagline is: The spark between dicussions because thats what we want our users to do. 
 
-Welcome,
+this site contains differnt type of fetures to keep users engaged, such as post:
+- Post Creation: Users can create new blog posts by filling out the title, content, tags, and optionally adding a featured image.
 
-This is the Code Institute student template for Codeanywhere. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+- Post Listing: The homepage displays a list of published blog posts, sorted by recency. Users can also filter posts by tags.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **May 11th, 2023**
+- Post Details: Clicking on a blog post from the list takes the user to the post detail page, where they can view the full content, leave comments, and like the post.
 
-## Codeanywhere Reminders
+- Commenting: Users can leave comments on blog posts. Comments can be approved or disapproved by the admin.
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
+- Sorting: Users can sort the blog posts based on the number of likes, comments, or recency.
 
-`python3 -m http.server`
+-Search: Users can search for blog posts based on tags.
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
-
-`http_server`
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A button should appear to click: _Open Preview_ or _Open Browser_.
-
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
----
-
-Happy coding!
+Acknowledgments:
+through my exeperiences around cryptocurrency ive come into contact of various developer and have started to build connections and support, one member i know on discord #Karmas9992 #5222, he kept my focussed and pushed me to try new depencies i havent come across before.
