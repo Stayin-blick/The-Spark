@@ -1,5 +1,12 @@
-from .models import Comment, Post
+from .models import Comment, Post, UserProfile
 from django import forms
+from django.contrib.auth.forms import UserChangeForm
+
+
+class UserProfileForm(UserChangeForm):
+    class Meta:
+        model = UserProfile
+        fields = ('profile_picture', 'bio')
 
 
 class BlogPostForm(forms.ModelForm):
