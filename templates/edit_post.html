@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="container-fluid p-3 shadow main-bg post-bg" style="border-radius: 35px;">
+    <!-- Row that spans across the screen -->
+    <div class="row">
+        <div class="col">
+            <h1>
+                Editing {{ post.title }}
+            </h1>
+        </div>
+    </div>
+    <!-- Row with two columns on the right and left -->
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Content for the left column -->
+            <h3>
+                By: {{ post.author }} | {{ post.created_date }}
+            <h3>
+        </div>
+    </div>
+
+    <div class="row mx-auto">
+        <div class="col-md-8">
+            <!-- Content for the left column -->
+            <!-- The featured image -->
+            {% if "placeholder" in post.featured_image.url %}
+            <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" width="100%" />
+            {% else %}
+            <img src="{{ post.featured_image.url }}" width="100%" />
+            {% endif %}
+            <p>
+                {{ post.content }}
+            </p>
+        </div>
+        <div class="col-md-4 shadow-lg main-bg post-cardbody">
+            <!-- Content for the right column -->
+            <!-- Edit Form -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Another row -->
+    <div class="row p-3">
+        <div class="col">
+            <!-- Content for the row -->
+            <!-- Editable content here -->
+        </div>
+    </div>
+
+    <!-- Add more rows as needed -->
+</div>
+
+{% endblock content %}

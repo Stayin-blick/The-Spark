@@ -4,7 +4,11 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 from .models import Post
-from .forms import CommentForm, BlogPostForm, UserProfileForm
+from .forms import CommentForm, BlogPostForm, UserProfileForm, EditBlogPostForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.utils.text import slugify
+
 
 class UserProfile(View):
 
@@ -113,6 +117,62 @@ class PostDetail(View):
                 "liked": liked
             },
         )
+
+@method_decorator(login_required, name='dispatch')
+class EditPost(View):
+    def get(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        # Check if the user is the author of the post
+        if request.user != post.author:
+            # Handle unauthorized access (e.g., show an error message)
+            return redirect('post_details', slug=slug)
+
+        # Prepopulate the form with the existing post data
+        form = EditBlogPostForm(instance=post)
+
+        return render(request, 'edit_post.html', {'form': form, 'post': post})
+
+    def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        # Check if the user is the author of the post
+        if request.user != post.author:
+            # Handle unauthorized access (e.g., show an error message)
+            return redirect('post_details', slug=slug)
+
+        form = EditBlogPostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+
+            # Update the slug to match the new title (if it has changed)
+            new_slug = slugify(post.title)
+            if post.slug != new_slug:
+                post.slug = new_slug
+                post.save()  # Save the post to update the slug in the database
+
+            post.save()
+
+            # Redirect to the updated post details page with the new slug
+            return redirect('post_details', slug=post.slug)
+
+        return render(request, 'edit_post.html', {'form': form, 'post': post})
+
+
+@method_decorator(login_required, name='dispatch')
+class DeletePost(View):
+
+    def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+
+        # Check if the user is the author of the post
+        if request.user != post.author:
+            # Handle unauthorized access (e.g., show an error message)
+            return redirect('post_details', slug=slug)
+
+        # Delete the post
+        post.delete()
+        return redirect('home')
 
 
 class PostLike(View):

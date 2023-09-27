@@ -15,6 +15,12 @@ class BlogPostForm(forms.ModelForm):
         fields = ('title', 'content', 'tags', 'featured_image')
 
 
+class EditBlogPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'content', 'tags', 'featured_image')
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
