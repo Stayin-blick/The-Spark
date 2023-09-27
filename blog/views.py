@@ -4,7 +4,23 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
 from .models import Post
-from .forms import CommentForm, BlogPostForm
+from .forms import CommentForm, BlogPostForm, UserProfileForm
+
+class UserProfile(View):
+
+    def get(self, request):
+        # Get the user's profile
+        user_profile = request.user.userprofile
+        form = UserProfileForm(instance=user_profile)
+        return render(request, 'user_profile.html', {'form': form})
+
+    def post(self, request):
+        user_profile = request.user.userprofile
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+        return render(request, 'user_profile.html', {'form': form})
 
 
 class PostList(generic.ListView):
