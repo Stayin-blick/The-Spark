@@ -34,7 +34,7 @@ DEBUG = True
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
-    "8000-stayin-blick-the-spark-wfk1ecavj2.us2.codeanyapp.com",
+    "8000-stayinblick-thespark-y1syz9czk6s.ws-eu105.gitpod.io",
     "The_Spark.herokuapp.com",
     "spark-project4.herokuapp.com",
     "localhost"
