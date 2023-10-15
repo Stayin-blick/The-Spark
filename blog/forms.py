@@ -1,8 +1,9 @@
 from .models import Comment, Post, UserProfile
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
 from django.contrib.auth.models import User
+
 
 class UserProfileForm(UserChangeForm):
     class Meta:
@@ -29,8 +30,8 @@ class CommentForm(forms.ModelForm):
 
 class CustomSignupForm(SignupForm):
 
-    username = forms.CharField(
-        label="Username",
+    signup_username = forms.CharField(
+        label="signup_username",
         max_length=30,
         required=True,
         widget=forms.TextInput(attrs={'placeholder': 'Enter a unique username'}),
