@@ -61,3 +61,11 @@ class CustomSignupForm(SignupForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords do not match.")
         return cleaned_data
+
+class CustomLoginForm(LoginForm):
+    username = forms.CharField(
+        label="Username",
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Enter your username'}),
+    )
