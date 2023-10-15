@@ -85,3 +85,9 @@ p {
     width: 235px;
 }
 
+
+@media (max-width: 767.98px) {
+    .navbar .row {
+        flex-direction: column;
+    }
+}
