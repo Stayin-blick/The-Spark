@@ -22,8 +22,31 @@ p {
 }
 
 /* colors */
+
+body {
+    background: rgb(33,212,253);
+    background: linear-gradient(180deg, rgba(33,212,253,1) 0%, rgba(183,33,255,1) 100%);
+    padding: 10px; 
+    max-width: 100%; 
+
+    /* Responsive Typography */
+    font-size: 1rem; 
+
+    @media (max-width: 768px) {
+        font-size: 0.9rem; 
+    }
+
+    @media (max-width: 576px) {
+        font-size: 0.8rem; 
+    }
+}
+
+div {
+    border-radius: 35px;
+}
+
 .main-color{
-    background-color: #ef9273;
+    background-color: #FCFCD4;
 }
 
 .secondary-color{
@@ -34,28 +57,38 @@ p {
     background-color: #0d0d0d;
 }
 
+.border{
+    border-width: 2px;
+    border-style: solid;
+    border-color: red;
+}
+
+.comment-section {
+    background-color: #e9e9c19c;
+}
+
+.comment-like{
+    justify-content: space-evenly;
+}
+
 /*index buttons*/
 .main-btn{
-    --bs-btn-color: #fef9f8;
-    --bs-btn-bg: #ef9273;
-    --bs-btn-border-color: #ef9273;
-    --bs-btn-hover-color: #ef9273;
-    --bs-btn-hover-bg: #fef9f8;
-    --bs-btn-hover-border-color: #ef9273;
+    border-radius: 25px;
+    background-color: #007663;
+    color: #fef9f8;
+    --bs-btn-hover-color: #93CCC2;
     --bs-btn-focus-shadow-rgb: 49,132,;
     --bs-btn-active-color: #fef9f8;
     --bs-btn-active-bg: #e86133;
     --bs-btn-active-border-color: #106d8c;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #;
-    --bs-btn-disabled-bg: #ef92;
-    --bs-btn-disabled-border-color: #ef9273;
+    --bs-btn-active-shadow: inset 0 3px 5px;
 }
 
 /*post styling*/
 /*post background*/
 .post-bg{
-    background-color: #92d8e7;
+    background: rgb(252,252,212);
+    background: radial-gradient(circle, rgba(252,252,212,1) 85%, rgba(67,142,127,1) 100%);
 }
 
 /*post text*/
@@ -66,7 +99,7 @@ p {
 /*post title styling*/
 .title-bg {
     border-radius: 25px;
-    background-color: #ef9273;
+    background-color: #007663;
 }
 
 .text-style {
@@ -76,8 +109,9 @@ p {
 
 /*post.cardbody*/
 .post-cardbody{
-    background-color: #ef9273;
-    color: #fef9f8;
+    background: rgb(252,252,212);
+    background: radial-gradient(circle, rgba(252,252,212,1) 85%, rgba(67,142,127,1) 100%);
+    padding: 15px;
 }
 
 /*form*/

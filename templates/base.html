@@ -22,15 +22,15 @@
     <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
 </head>
 
-<body class="d-flex flex-column h-100 main-bg">
+<body>
     <!--Navbar-->
-    <div class="container-fluid navbar-dark main-color rounded-pill shadow-lg">
-        <nav class="row navbar navbar-expand-md mx-auto mb-3">
-            <div class="container navbar-nav d-flex align-items-center p-0 justify-content-center">
-                <div class="row navbar-brand nav-item m-2">
-                    <a class="navbar-brand nav-item" href="/">
+    <div class="container-fluid main-color rounded-pill shadow-lg">
+        <nav class="navbar navbar-expand-md">
+            <div class="container">
+                <div class="nav-item">
+                    <a href="/">
                         <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg"
-                            style="border-radius: 35px;max-width: inherit;" class="col my-4">
+                            style="border-radius: 35px;max-width: 80%;" class="col">
                     </a>
                 </div>
                 <a class="navbar-brand nav-item">
@@ -38,7 +38,7 @@
                         <form id="search-form" class="d-flex my-2 my-lg-0 nav-item">
                             <input type="hidden" name="csrfmiddlewaretoken"
                                 value="WOej4l0bIzU1GeHeva4qJXubEqwqAQL3D6pCSjXVN69dWyIykgDIKxV70qEiFFet">
-                            <input class="form-control me-2 flex-grow-1 w-100" id="tag-input" type="search"
+                            <input class="form-control" id="tag-input" type="search"
                                 placeholder="Search by tag..." aria-label="Search">
                         </form>
                     </div>
@@ -46,7 +46,7 @@
                 <!--user signup/in interaction-->
                 <div class="d-flex align-items-center">
                     {% if request.user.is_authenticated %}
-                    <div>
+                    <div class="me-2 mx-auto">
                         <p>Welcome, {{ request.user.username }}</p>
                     </div>
                         <div class="dropdown">

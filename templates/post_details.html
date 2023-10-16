@@ -2,21 +2,20 @@
 
 <div class="container-fluid p-3 shadow main-bg post-bg" style="border-radius: 35px;">
     <!-- Row that spans across the screen -->
-    <div class="row">
+    <div class="row ">
         <div class="col">
             <h1>
                 {{ post.title }}
             </h1>
         </div>
-    </div>
-    <!-- Row with two columns on the right and left -->
-    <div class="row">
         <div class="col-md-6">
-            <!-- Content for the left column -->
             <h3>
                 By: {{ post.author }} | {{ post.created_date}}
             <h3>
         </div>
+    </div>
+    <!-- Row with two columns on the right and left -->
+    <div class="row comment-like">
         <div class="d-flex justify-content-end mb-2">
             <!-- Content for the right column -->
             <div class="col-1">
@@ -47,7 +46,7 @@
             </div>
         </div>
 
-        <div class="row mx-auto">
+        <div class="row mx-auto border">
             <div class="col-md-8">
                 <!-- Content for the left column-->
                 <!-- The featured image-->
@@ -61,11 +60,11 @@
                 <!-- Content for the right column-->
                 <!-- Comments-->
                 <h3 class="p-2 rounded-pill shadow">Comments:</h3>
-                <div class="card-body">
+                <div class="card-body ">
                     <!-- We want a for loop inside the tags to iterate through each comment in comments -->
                     {% for comment in comments %}
-                    <div class="comments rounded-pill" style="padding: 10px">
-                        <p class="font-weight-bold">
+                    <div class="comments border" style="padding: 10px">
+                        <p class="font-weight-bold comments">
                             {{ comment.name }}
                             <span class="text-muted font-weight-normal">
                                 {{ comment.created_on }}
@@ -78,44 +77,35 @@
                     <p class="text-center">No comments yet.</p>
                     {% endfor %}
                 </div>
-                <div class="row mt-auto">
-                    <div class="col-12">
-                        <!-- Content for the new row (20% of the column) -->
-                        <div class="p-5 rounded-pill text-center shadow main-bg">
-                            <!-- Content goes here -->
-                            <!-- This div will take up 20% of the column width -->
-                            {% if commented %}
-                            <div class="alert alert-success" role="alert">
-                                Your comment is awaiting approval
+            </div>
+        </div>
+        <br>
+        <!-- comments section -->
+        <div class="comment-section container mt-4">
+            <div class="row">
+                <div class="col">
+                    <p>{{ post.content }}</p>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-12">
+                    <div class="comment-form">
+                        <h3 class="text-center">Leave a comment:</h3>
+                        <p>Posting as: public010</p>
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="id_body" class="form-label requiredField">Body<span class="asteriskField">*</span></label>
+                                <textarea name="body" cols="40" rows="10" class="textarea form-control" required id="id_body"></textarea>
                             </div>
-                            {% else %} {% if user.is_authenticated %}
-                            <h3>Leave a comment:</h3>
-                            <p>Posting as: {{ user.username }}</p>
-                            <form method="post">
-                                {{ comment_form | crispy }} {% csrf_token %}
-                                <button type="submit" class="btn btn-signup btn-lg">
-                                    Submit
-                                </button>
-                            </form>
-                            {% endif %}{% endif %}
-                        </div>
+                            <input type="hidden" name="csrfmiddlewaretoken" value="SkTdaReQ7NHVV7OXmi0iMYD8qaE3Mq7v7Dovnad8j0szw8UtzpVrYrpGp1UV6JrA">
+                            <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Another row -->
-        <div class="row p-3">
-            <div class="col">
-                <!-- Content for the row -->
-                <!-- Add your content here -->
-                <p>
-                    {{ post.content }}
-                </p>
-            </div>
-        </div>
-
-        <!-- Add more rows as needed -->
+        
     </div>
     <div>
         {% if user.is_authenticated and user == post.author %}
