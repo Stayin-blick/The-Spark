@@ -1,10 +1,82 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>User Profile</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-  </form>
+<div class="text-center row post-bg">
+  <h1>{{ request.user.username }}'s Profile</h1>
+
+  <!-- Display User Profile Picture and Bio -->
+  <div class="d-flex col-md-6">
+    <div class="p-2">
+      <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle">
+    </div>
+    <div class="p-2 col-md-6">  
+      <h3>
+        Bio:
+      </h3>
+      {% if user_profile.bio %}
+          <p>{{ user_profile.bio }}</p>
+          <div>
+            <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit</a>
+          </div>
+      {% else %}
+          <p>Looks like there's nothing here. <a href="{% url 'edit_user_profile' %}">Click here to edit your profile.</a></p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid rounded-pill text-center" id="blog-post">
+  
+    <!--user post-->
+    <div class="row">
+        {% for post in user_posts %}
+            <!--post card-->
+            <div class="col main-bg shadow-lg post-bg my-2 mx-1">
+              <h3>My Posts:</h3>
+
+                <div class="blog-post post-bg" data-likes="{{ post.number_of_likes }}"
+                    data-comments="{{ post.number_of_approved_comments }}"
+                    data-tags="{% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor%}">
+                    <!--title positioning-->
+                    <div class=" mt-2 conatiner-fluid mx-auto">
+                        <a class="text-style" href="{% url 'post_details' post.slug %}" class="post-link">
+                            <h1 class="btn btn-lg main-btn mt-3 title-bg">{{ post.title }}</h1>
+                        </a>
+
+                        <!--image-->
+                        <div class="card mx-auto my-3">
+                            {% if "placeholder" in post.featured_image.url %}
+                                <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" />
+                            {% else %}
+                                <img src="{{ post.featured_image.url }}" />
+                            {% endif %}
+
+                            <div class="card-body post-cardbody">
+                                <p>
+                                    Tags:{% for tag in post.tags.all %}
+                                        {{ tag.name }}
+                                        {% if not forloop.last %}, {% endif %}
+                                    {% endfor%}
+                                </p>
+                                <p class="card-text">
+                                    {{ post.content }}
+                                </p>
+                                <p class="card-text">
+                                    <small class="card-text">
+                                       {{ post.created_date}}</small>
+                                </p>
+                                <span>
+                                    <p>
+                                        <i class="far fa-heart"></i>{{ post.number_of_likes }}
+                                        <i class="fa-regular fa-comment"></i>{{ post.number_of_approved_comments }}
+                                    </p>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

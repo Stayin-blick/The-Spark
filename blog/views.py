@@ -3,28 +3,40 @@ from django.views import generic, View
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from taggit.models import Tag
-from .models import Post
+from .models import Post, UserProfile
 from .forms import CommentForm, BlogPostForm, UserProfileForm, EditBlogPostForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.utils.text import slugify
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 
-class UserProfile(View):
+class UserProfileView(LoginRequiredMixin, DetailView):
+    model = UserProfile
+    template_name = 'user_profile.html'
+    context_object_name = 'user_profile'
 
-    def get(self, request):
-        # Get the user's profile
-        user_profile = request.user.userprofile
-        form = UserProfileForm(instance=user_profile)
-        return render(request, 'user_profile.html', {'form': form})
+    def get_object(self, queryset=None):
+        return self.request.user.userprofile
 
-    def post(self, request):
-        user_profile = request.user.userprofile
-        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-        if form.is_valid():
-            form.save()
-            return redirect('user_profile')
-        return render(request, 'user_profile.html', {'form': form})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_posts'] = Post.objects.filter(author=self.request.user)
+        context['form'] = UserProfileForm(instance=self.request.user.userprofile)
+        return context
 
+
+class EditUserProfileView(LoginRequiredMixin, UpdateView):
+    model = UserProfile
+    form_class = UserProfileForm
+    template_name = 'edit_user_profile.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user.userprofile
+
+    def get_success_url(self):
+        return reverse('user_profile')
 
 class PostList(generic.ListView):
     model = Post
