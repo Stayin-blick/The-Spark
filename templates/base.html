@@ -24,51 +24,47 @@
 
 <body>
     <!--Navbar-->
-    <div class="container-fluid main-color rounded-pill shadow-lg">
-        <nav class="navbar navbar-expand-md">
-            <div class="container">
-                <div class="nav-item">
-                    <a href="/">
-                        <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg"
+        <nav class="navbar navbar-expand-md fixed-top nv-style">
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="row">
+                    <div class="col">
+                        <a class="navbar-brand" href="/">
+                            <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg"
                             style="border-radius: 35px;max-width: 80%;" class="col">
-                    </a>
-                </div>
-                <a class="navbar-brand nav-item">
-                    <div class="d-flex justify-content-center col-sm-6 col-md-10 col-md-12">
-                        <form id="search-form" class="d-flex my-2 my-lg-0 nav-item">
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <form id="search-form">
                             <input type="hidden" name="csrfmiddlewaretoken"
                                 value="WOej4l0bIzU1GeHeva4qJXubEqwqAQL3D6pCSjXVN69dWyIykgDIKxV70qEiFFet">
                             <input class="form-control" id="tag-input" type="search"
                                 placeholder="Search by tag..." aria-label="Search">
                         </form>
                     </div>
-                </a>
                 <!--user signup/in interaction-->
-                <div class="d-flex align-items-center">
+                <div class="col">
                     {% if request.user.is_authenticated %}
-                    <div class="me-2 mx-auto">
+                    <div>
                         <p>Welcome, {{ request.user.username }}</p>
                     </div>
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user"></i>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <ul class="dropdown-menu buttons" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="user_profile/">Profile</a></li>
                                 <li><a class="dropdown-item" href="/accounts/logout/">Sign Out</a></li>
                             </ul>
                         </div>
                     {% else %}
                         <ul class="navbar-nav" style="padding-left: 0px;">
-                            <li class="nav-item"><a class="nav-link" href="/accounts/signup/">Register</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/accounts/login/">Login</a></li>
+                            <li class="nav-item buttons"><a class="nav-link buttons" href="/accounts/signup/">Register</a></li>
+                            <li class="nav-item buttons"><a class="nav-link" href="/accounts/login/">Login</a></li>
                         </ul>
                     {% endif %}
                 </div>
             </div>
         </nav>
-    </div>
-
 
     <main class="container-fluid p-3 m-4 mx-auto">
         {% block content %}

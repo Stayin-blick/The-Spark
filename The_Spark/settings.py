@@ -29,12 +29,12 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
-    "8000-stayinblick-thespark-85u0qr7q6s3.ws-eu105.gitpod.io",
+    "8000-stayinblick-thespark-lv85r13gorw.ws-eu106.gitpod.io",
     "The_Spark.herokuapp.com",
     "spark-project4.herokuapp.com",
     "localhost"
