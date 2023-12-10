@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.urls import reverse_lazy
@@ -10,7 +11,8 @@ from django.utils.decorators import method_decorator
 from django.utils.text import slugify
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = UserProfile
@@ -24,19 +26,42 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['user_posts'] = Post.objects.filter(author=self.request.user)
         context['form'] = UserProfileForm(instance=self.request.user.userprofile)
+        context['edit_profile_url'] = reverse('edit_profile')
         return context
 
 
-class EditUserProfileView(LoginRequiredMixin, UpdateView):
-    model = UserProfile
-    form_class = UserProfileForm
+class EditUserProfileView(LoginRequiredMixin, View):
     template_name = 'edit_user_profile.html'
 
-    def get_object(self, queryset=None):
-        return self.request.user.userprofile
+    def get(self, request, *args, **kwargs):
+        user_profile_form = UserProfileForm(instance=request.user.userprofile)
+        password_change_form = PasswordChangeForm(user=request.user)
 
-    def get_success_url(self):
-        return reverse('user_profile')
+        return render(
+            request,
+            self.template_name,
+            {'user_profile_form': user_profile_form, 'password_change_form': password_change_form}
+        )
+
+    def post(self, request, *args, **kwargs):
+        user_profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        password_change_form = PasswordChangeForm(request.user, data=request.POST)
+
+        if 'update_profile' in request.POST and user_profile_form.is_valid():
+            user_profile_form.save()
+            messages.success(request, 'Profile updated successfully.')
+
+        if 'change_password' in request.POST and password_change_form.is_valid():
+            user = password_change_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password updated successfully.')
+
+        elif 'change_password' in request.POST:
+            for field, errors in password_change_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
+
+        return redirect('user_profile')
 
 class PostList(generic.ListView):
     model = Post
@@ -72,8 +97,13 @@ class Create_Post(View):
                     tag, created = Tag.objects.get_or_create(
                         name=tag_name.strip())
                     post.tags.add(tag)
+
+            messages.success(request, 'Post created successfully.')
             return redirect(reverse_lazy('home'))
         else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
             return render(request, 'create_post.html', {'form': form})
 
 
@@ -163,11 +193,14 @@ class EditPost(View):
                 post.save()  # Save the post to update the slug in the database
 
             post.save()
-
+            messages.success(request, 'Post updated successfully.')
             # Redirect to the updated post details page with the new slug
             return redirect('post_details', slug=post.slug)
-
-        return render(request, 'edit_post.html', {'form': form, 'post': post})
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
+            return render(request, 'edit_post.html', {'form': form, 'post': post})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -183,6 +216,7 @@ class DeletePost(View):
 
         # Delete the post
         post.delete()
+        messages.success(request, 'Post deleted successfully.')
         return redirect('home')
 
 

@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="post-bg p-4">
   <h1>Edit Your Profile</h1>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-  </form>
+  <div class="container-fluid">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ user_profile_form.as_p }}
+      <button type="submit" class="btn btn-primary" name="update_profile">Save Changes</button>
+    </form>
+    <form method="post" class="my-4">
+      {% csrf_token %}
+      {{ password_change_form.as_p }}
+      <button type="submit" class="btn btn-primary" name="change_password">Change Password</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

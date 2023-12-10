@@ -1,14 +1,18 @@
 from .models import Comment, Post, UserProfile
 from django import forms
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from allauth.account.forms import SignupForm, LoginForm
 from django.contrib.auth.models import User
-
 
 class UserProfileForm(UserChangeForm):
     class Meta:
         model = UserProfile
         fields = ('profile_picture', 'bio')
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields.pop('password')
+        self.fields['bio'].widget = forms.Textarea(attrs={'rows': 3})
 
 
 class BlogPostForm(forms.ModelForm):
