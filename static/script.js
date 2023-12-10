@@ -86,3 +86,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        const alertElement = document.querySelector(".alert");
+        if (alertElement) {
+            alertElement.classList.remove('show');
+        }
+    }, 5000);
+});
