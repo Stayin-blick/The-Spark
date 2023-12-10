@@ -5,11 +5,11 @@
   <h1>{{ request.user.username }}'s Profile</h1>
 
   <!-- Display User Profile Picture and Bio -->
-  <div class="d-flex col-md-6">
+  <div class="col">
     <div class="p-2">
-      <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle">
+      <img class="img-fluid rounded-circle pfp" src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
     </div>
-    <div class="p-2 col-md-6">  
+    <div class="p-2">
       <h3>
         Bio:
       </h3>
@@ -19,16 +19,15 @@
             <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit</a>
           </div>
       {% else %}
-          <p>Looks like there's nothing here. <a href="{% url 'edit_user_profile' %}">Click here to edit your profile.</a></p>
+          <p>Looks like there's nothing here.  <a href="{% url 'edit_profile' %}">Click here to edit your profile.</a></p>
       {% endif %}
     </div>
   </div>
 </div>
 
-<div class="container-fluid rounded-pill text-center" id="blog-post">
-  
-    <!--user post-->
-    <div class="row">
+<!--user post-->
+<div class="container-fluid rounded-pill text-center" id="blog-post">  
+    <div class="row p-3">
         {% for post in user_posts %}
             <!--post card-->
             <div class="col main-bg shadow-lg post-bg my-2 mx-1">

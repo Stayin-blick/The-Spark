@@ -21,19 +21,18 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
 </head>
-
-<body>
-    <!--Navbar-->
+    <body>
+        <!--Navbar-->
         <nav class="navbar navbar-expand-md fixed-top nv-style">
-            <div class="container d-flex justify-content-center align-items-center">
+            <div class="container-fluid justify-content-center align-items-center">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-2 col-12">
                         <a class="navbar-brand" href="/">
                             <img src="https://live.staticflickr.com/65535/52932376451_6ba04c946b_n.jpg"
-                            style="border-radius: 35px;max-width: 80%;" class="col">
+                            class="img-fluid" alt="Logo">
                         </a>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6 col-12">
                         <form id="search-form">
                             <input type="hidden" name="csrfmiddlewaretoken"
                                 value="WOej4l0bIzU1GeHeva4qJXubEqwqAQL3D6pCSjXVN69dWyIykgDIKxV70qEiFFet">
@@ -44,48 +43,59 @@
                 <!--user signup/in interaction-->
                 <div class="col">
                     {% if request.user.is_authenticated %}
-                    <div>
-                        <p>Welcome, {{ request.user.username }}</p>
-                    </div>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i>
-                            </button>
-                            <ul class="dropdown-menu buttons" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="user_profile/">Profile</a></li>
-                                <li><a class="dropdown-item" href="/accounts/logout/">Sign Out</a></li>
-                            </ul>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <p class="text-center text-md-start mb-0">Welcome, {{ request.user.username }}</p>
                         </div>
+                            <div class="dropdown col">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item buttons" href="user_profile/">Profile</a></li>
+                                    <li><a class="dropdown-item buttons" href="/accounts/logout/">Sign Out</a></li>
+                                </ul>
+                            </div>
+                    </div>
                     {% else %}
-                        <ul class="navbar-nav" style="padding-left: 0px;">
-                            <li class="nav-item buttons"><a class="nav-link buttons" href="/accounts/signup/">Register</a></li>
-                            <li class="nav-item buttons"><a class="nav-link" href="/accounts/login/">Login</a></li>
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link buttons" href="/accounts/signup/">Register</a></li>
+                            <li class="nav-item"><a class="nav-link buttons" href="/accounts/login/">Login</a></li>
                         </ul>
                     {% endif %}
                 </div>
             </div>
         </nav>
 
-    <main class="container-fluid p-3 m-4 mx-auto">
-        {% block content %}
-        <!-- Content Goes here -->
+        <!--display success message-->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+            {% for message in messages %}
+                <div id="messages" class="alert alert-{{ message.tags }} alert-dismissible fade show messages" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
 
-        {% endblock content %}
-    </main>
+        <main class="container-fluid p-4 m-5 mx-auto">
+            {% block content %}
+            <!-- Content Goes here -->
 
-    <!--footer-->
-    <footer class="footer w-75 mx-auto p-2 main-bg rounded-pill shadow-lg main-color p-3 m-4 rounded-pill">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <p>
-                        The Spark ©{{ current_year }}
-                    </p>
+            {% endblock content %}
+        </main>
+
+        <!--footer-->
+        <footer class="footer w-75 mx-auto p-2 main-bg rounded-pill shadow-lg main-color p-3 m-4 rounded-pill">
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <p>
+                            The Spark ©{{ current_year }}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-</body>
-<script src="{% static 'script.js' %}"></script>
-
+        </footer>
+        <script src="{% static 'script.js' %}"></script>
+    </body>
 </html>

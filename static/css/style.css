@@ -6,7 +6,6 @@ p {
 }
 
 /*navbar*/
-
 .nv-style:before,
 .nv-style:after {
     content: " ";
@@ -19,9 +18,9 @@ p {
 
 .nv-style {
     zoom: 1;
-}
-
-
+    backdrop-filter: blur(5px); 
+    border-radius: 50px; 
+    background-image: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);}
 
 .nav-link {
     color: #fef9f8;
@@ -70,6 +69,11 @@ p {
 .buttons:not([disabled]):active {
   box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
   transform: translate(2px, 2px);
+}
+
+.dropdown-menu {
+    background: none;
+    border: none;
 }
 
 @media (min-width: 768px) {
@@ -193,4 +197,21 @@ div {
 
 .border {
     color: red;
+}
+
+/*profile*/
+
+.pfp {
+    width: 20%;
+}
+
+.edit-message {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#messages {
+    background-color: #e86133;
+    border-color: #000;
 }
