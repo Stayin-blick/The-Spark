@@ -14,6 +14,7 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 
+# View for displaying user profile
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = UserProfile
     template_name = 'user_profile.html'
@@ -29,7 +30,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         context['edit_profile_url'] = reverse('edit_profile')
         return context
 
-
+# View for editing user profile
 class EditUserProfileView(LoginRequiredMixin, View):
     template_name = 'edit_user_profile.html'
 
@@ -63,6 +64,7 @@ class EditUserProfileView(LoginRequiredMixin, View):
 
         return redirect('user_profile')
 
+# View for displaying a list of blog posts
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_date")
@@ -77,7 +79,7 @@ class PostList(generic.ListView):
             queryset = queryset.filter(tags=tag)
         return queryset
 
-
+# View for creating a new blog post
 class Create_Post(View):
 
     def get(self, request):
@@ -106,7 +108,7 @@ class Create_Post(View):
                     messages.error(request, f"Error in {field}: {error}")
             return render(request, 'create_post.html', {'form': form})
 
-
+# View for displaying details of a blog post
 class PostDetail(View):
 
     def get(self, request, slug, *args, **kwargs):
@@ -159,6 +161,7 @@ class PostDetail(View):
             },
         )
 
+# View for editing an existing blog post
 @method_decorator(login_required, name='dispatch')
 class EditPost(View):
     def get(self, request, slug, *args, **kwargs):
@@ -202,7 +205,7 @@ class EditPost(View):
                     messages.error(request, f"Error in {field}: {error}")
             return render(request, 'edit_post.html', {'form': form, 'post': post})
 
-
+# View for deleting a blog post
 @method_decorator(login_required, name='dispatch')
 class DeletePost(View):
 
@@ -219,7 +222,7 @@ class DeletePost(View):
         messages.success(request, 'Post deleted successfully.')
         return redirect('home')
 
-
+# View for handling post likes
 class PostLike(View):
 
     def post(self, request, slug, *args, **kwargs):
@@ -228,5 +231,6 @@ class PostLike(View):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user.id)
+            messages.success(request, 'You liked a post.')
 
         return HttpResponseRedirect(reverse('post_details', args=[slug]))
