@@ -2,7 +2,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="container-fluid p-3 shadow main-bg post-bg" style="border-radius: 35px;">
+<div class="container-fluid p-3 shadow nv-style">
     <!-- Row that spans across the screen -->
     <div class="row">
         <div class="col">
@@ -34,7 +34,7 @@
                 {{ post.content }}
             </p>
         </div>
-        <div class="col-md-4 shadow-lg main-bg post-cardbody">
+        <div class="col-md-4 my-2 p-2 shadow-lg">
             <!-- Content for the right column -->
             <!-- Edit Form -->
             <form method="post" enctype="multipart/form-data">
@@ -53,7 +53,6 @@
         </div>
     </div>
 
-    <!-- Add more rows as needed -->
 </div>
 
 {% endblock content %}

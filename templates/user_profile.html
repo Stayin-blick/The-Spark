@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="text-center row post-bg">
-  <h1>{{ request.user.username }}'s Profile</h1>
+<div class="text-center row nv-style">
+  <h1 class="p-2 my-2">{{ request.user.username }}'s Profile</h1>
 
   <!-- Display User Profile Picture and Bio -->
   <div class="col">
@@ -10,7 +10,7 @@
       <img class="img-fluid rounded-circle pfp" src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
     </div>
     <div class="p-2">
-      <h3>
+      <h3 class="p-2 my-2">
         Bio:
       </h3>
       {% if user_profile.bio %}
@@ -30,10 +30,10 @@
     <div class="row p-3">
         {% for post in user_posts %}
             <!--post card-->
-            <div class="col main-bg shadow-lg post-bg my-2 mx-1">
-              <h3>My Posts:</h3>
+            <div class="col main-bg shadow-lg nv-style my-2 mx-1">
+              <h3 class="p-2 my-2">My Posts:</h3>
 
-                <div class="blog-post post-bg" data-likes="{{ post.number_of_likes }}"
+                <div class="blog-post nv-style" data-likes="{{ post.number_of_likes }}"
                     data-comments="{{ post.number_of_approved_comments }}"
                     data-tags="{% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor%}">
                     <!--title positioning-->
@@ -50,7 +50,7 @@
                                 <img src="{{ post.featured_image.url }}" />
                             {% endif %}
 
-                            <div class="card-body post-cardbody">
+                            <div class="card-body">
                                 <p>
                                     Tags:{% for tag in post.tags.all %}
                                         {{ tag.name }}

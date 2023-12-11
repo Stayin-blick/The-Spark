@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
 
-<div class="container-fluid p-3 shadow main-bg post-bg" style="border-radius: 35px;">
+<div class="container-fluid p-5 shadow nv-style">
     <!-- Row that spans across the screen -->
     <div class="row ">
         <div class="col">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="row mx-auto border">
+        <div class="row mx-auto border p-4">
             <div class="col-md-8">
                 <!-- Content for the left column-->
                 <!-- The featured image-->
@@ -56,14 +56,14 @@
                 <img src="{{ post.featured_image.url }}" width="100%" />
                 {% endif %}
             </div>
-            <div class="col-md-4 shadow-lg main-bg post-cardbody">
+            <div class="col-md-4 shadow-lg nv-stlye p-2">
                 <!-- Content for the right column-->
                 <!-- Comments-->
                 <h3 class="p-2 rounded-pill shadow">Comments:</h3>
                 <div class="card-body ">
                     <!-- We want a for loop inside the tags to iterate through each comment in comments -->
                     {% for comment in comments %}
-                    <div class="comments border" style="padding: 10px">
+                    <div class="comments border p-2 m-2" style="padding: 10px">
                         <p class="font-weight-bold comments">
                             {{ comment.name }}
                             <span class="text-muted font-weight-normal">
@@ -83,7 +83,7 @@
         <!-- comments section -->
         <div class="comment-section container mt-4">
             <div class="row">
-                <div class="col">
+                <div class="col p-4 my-1">
                     <p>{{ post.content }}</p>
                 </div>
             </div>
@@ -92,14 +92,14 @@
                 <div class="col-12">
                     <div class="comment-form">
                         <h3 class="text-center">Leave a comment:</h3>
-                        <p>Posting as: public010</p>
+                        <p>Posting as: {{ request.user.username }}</p>
                         <form method="post">
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label for="id_body" class="form-label requiredField">Body<span class="asteriskField">*</span></label>
                                 <textarea name="body" cols="40" rows="10" class="textarea form-control" required id="id_body"></textarea>
                             </div>
-                            <input type="hidden" name="csrfmiddlewaretoken" value="SkTdaReQ7NHVV7OXmi0iMYD8qaE3Mq7v7Dovnad8j0szw8UtzpVrYrpGp1UV6JrA">
-                            <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                            <button type="submit" class="btn main-btn btn-lg mb-2">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -109,6 +109,7 @@
     </div>
     <div>
         {% if user.is_authenticated and user == post.author %}
+        <br>
             <a href="{% url 'edit_post' post.slug %}" class="btn btn-primary">Edit</a>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">
                 Delete
